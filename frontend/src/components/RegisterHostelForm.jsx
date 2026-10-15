@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar';
@@ -126,7 +126,7 @@ const RegisterHostelForm = () => {
         formDataToSend.append('images360', image.file);
       });
 
-      const response = await axios.post('/api/hostels', formDataToSend, {
+      const response = await api.post('/hostels', formDataToSend, {
         headers: { 
           'x-auth-token': token,
           'Content-Type': 'multipart/form-data'

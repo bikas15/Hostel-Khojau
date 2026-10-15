@@ -115,14 +115,15 @@ router.post(
       }
 
       const user = await User.findById(req.user.id);
+      const uploadBaseUrl = `${req.protocol}://${req.get('host')}`;
       
       // Process uploaded files
       const imageUrls = req.files['images'] 
-        ? req.files['images'].map(file => `/images/hostels/${file.filename}`)
+        ? req.files['images'].map(file => `${uploadBaseUrl}/images/hostels/${file.filename}`)
         : [];
       
       const image360Urls = req.files['images360']
-        ? req.files['images360'].map(file => `/images/hostels/${file.filename}`)
+        ? req.files['images360'].map(file => `${uploadBaseUrl}/images/hostels/${file.filename}`)
         : [];
 
       const hostelData = {
@@ -183,7 +184,7 @@ router.put(  '/:id',
       const existingImages = JSON.parse(req.body.existingImages || '[]');
       const existingImages360 = JSON.parse(req.body.existingImages360 || '[]');
 
-      // Process new uploaded files      const baseUrl = 'http://localhost:5000'; // TODO: Replace with env variable
+      const baseUrl = `${req.protocol}://${req.get('host')}`;
       const newImageUrls = req.files['newImages'] 
         ? req.files['newImages'].map(file => `${baseUrl}/images/hostels/${file.filename}`)
         : [];

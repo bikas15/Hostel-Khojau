@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditHostelModal from '../components/EditHostelModal';
 import { API_BASE_URL } from '../api';
+import api from '../api';
 
 const OwnerDashboard = () => {
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ const OwnerDashboard = () => {
                     axios.get(`${API_BASE_URL}/owner/bookings`, {
                         headers: { 'x-auth-token': token }
                     }),
-                    axios.get('/api/chats', {
+                    api.get('/chats', {
                         headers: { 'x-auth-token': token }
                     })
                 ]);
@@ -111,7 +112,7 @@ const OwnerDashboard = () => {
     const handleDeleteReview = async (hostelId, reviewId) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.delete(`/api/reviews/${hostelId}/reviews/${reviewId}`, {
+            const response = await api.delete(`/reviews/${hostelId}/reviews/${reviewId}`, {
                 headers: { 'x-auth-token': token },
             });
             setHostels((prevHostels) =>
@@ -144,8 +145,8 @@ const OwnerDashboard = () => {
         }
 
         try {
-            const response = await axios.post(
-                `/api/chats/${chatId}/message`,
+            const response = await api.post(
+                `/chats/${chatId}/message`,
                 { message },
                 { headers: { 'x-auth-token': token } }
             );

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import api from '../api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -41,8 +40,8 @@ const HostelDetails = () => {
             try {
                 setLoading(true);
                 const [hostelResponse, roomsResponse] = await Promise.all([
-                    axios.get(`/api/hostels/${id}`),
-                    axios.get(`/api/hostels/${id}/rooms`),
+                    api.get(`/hostels/${id}`),
+                    api.get(`/hostels/${id}/rooms`),
                 ]);
 
                 // Add timestamp to force image reload
@@ -83,7 +82,7 @@ const HostelDetails = () => {
         if (showChat && token && userId) {
             const fetchChat = async () => {
                 try {
-                    const response = await axios.get('/api/chats', {
+                    const response = await api.get('/chats', {
                         headers: { 'x-auth-token': token }
                     });
                     const userChat = response.data.find(
@@ -197,8 +196,8 @@ const HostelDetails = () => {
         }
 
         try {
-            const response = await axios.post(
-                '/api/chats',
+            const response = await api.post(
+                '/chats',
                 { hostelId: id, message: chatForm.message },
                 { headers: { 'x-auth-token': token } }
             );
@@ -233,8 +232,8 @@ const HostelDetails = () => {
         }
 
         try {
-            const response = await axios.post(
-                `/api/reviews/${id}/reviews`,
+            const response = await api.post(
+                `/reviews/${id}/reviews`,
                 { comment: reviewForm.comment, rating: reviewForm.rating },
                 { headers: { 'x-auth-token': token } }
             );

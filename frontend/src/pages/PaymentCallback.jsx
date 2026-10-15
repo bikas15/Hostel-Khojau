@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import { API_BASE_URL } from '../api';
 
 const PaymentCallback = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const PaymentCallback = () => {
         // For cancelled payments or failures, update the booking status
         if (status === 'Cancelled' || status === 'Failed') {
           await axios.post(
-            `/api/bookings/${purchase_order_id}/cancel-payment`,
+            `${API_BASE_URL}/bookings/${purchase_order_id}/cancel-payment`,
             {},
             {
               headers: { 'x-auth-token': token }
@@ -43,7 +44,7 @@ const PaymentCallback = () => {
           );
           toast.info(status === 'Cancelled' ? 'Payment was cancelled' : 'Payment failed');
           const bookingResponse = await axios.get(
-            `/api/bookings/booking/${purchase_order_id}`,
+            `${API_BASE_URL}/bookings/booking/${purchase_order_id}`,
             {
               headers: { 'x-auth-token': token }
             }
@@ -60,7 +61,7 @@ const PaymentCallback = () => {
 
         // For successful payments, verify with backend
         const response = await axios.get(
-          `/api/bookings/complete-khalti-payment?pidx=${pidx}&transaction_id=${transaction_id}&purchase_order_id=${purchase_order_id}`,
+          `${API_BASE_URL}/bookings/complete-khalti-payment?pidx=${pidx}&transaction_id=${transaction_id}&purchase_order_id=${purchase_order_id}`,
           {
             headers: { 'x-auth-token': token }
           }
@@ -72,7 +73,7 @@ const PaymentCallback = () => {
           toast.success('Payment successful!');
           try {
             const bookingResponse = await axios.get(
-              `/api/bookings/booking/${purchase_order_id}`,
+              `${API_BASE_URL}/bookings/booking/${purchase_order_id}`,
               {
                 headers: { 'x-auth-token': token }
               }

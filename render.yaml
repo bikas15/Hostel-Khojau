@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: hostel-khojau-api-bikas15
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URI
+        value: https://bikas15.github.io/Hostel-Khojau/#
+      - key: ALLOWED_ORIGINS
+        value: https://bikas15.github.io,http://localhost:5173,http://localhost:5174,http://localhost:5175
