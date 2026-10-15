@@ -4,10 +4,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { API_BASE_URL } from '../api';
 
 // Use the correct backend URL
-const API_BASE_URL = 'http://localhost:5000/api';
-
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);

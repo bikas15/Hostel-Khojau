@@ -8,6 +8,7 @@ import HostelMap from '../components/HostelMap';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from '../api';
 
 const HostelDetails = () => {
     const { id } = useParams();
@@ -51,7 +52,7 @@ const HostelDetails = () => {
                 if (hostelData.images) {
                     hostelData.images = hostelData.images.map(img => {
                         // Handle both relative and absolute URLs
-                        const baseUrl = img.startsWith('http') ? '' : 'http://localhost:5000';
+                        const baseUrl = img.startsWith('http') ? '' : API_BASE_URL.replace(/\/api\/?$/, '');
                         const fullUrl = `${baseUrl}${img}`;
                         const separator = fullUrl.includes('?') ? '&' : '?';
                         return `${fullUrl}${separator}t=${imageTimestamp}`;
@@ -59,7 +60,7 @@ const HostelDetails = () => {
                 }
                 if (hostelData.images360) {
                     hostelData.images360 = hostelData.images360.map(img => {
-                        const baseUrl = img.startsWith('http') ? '' : 'http://localhost:5000';
+                        const baseUrl = img.startsWith('http') ? '' : API_BASE_URL.replace(/\/api\/?$/, '');
                         const fullUrl = `${baseUrl}${img}`;
                         const separator = fullUrl.includes('?') ? '&' : '?';
                         return `${fullUrl}${separator}t=${imageTimestamp}`;

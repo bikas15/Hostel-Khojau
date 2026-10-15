@@ -1,12 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/Hostel-Khojau/' : '/',
   plugins: [react()],
-  define: {
-    // Make environment variables available in the browser
-    'process.env': process.env
-  },
   server: {
     proxy: {
       '/api': {
@@ -16,4 +13,4 @@ export default defineConfig({
       }
     }
   }
-});
+}));

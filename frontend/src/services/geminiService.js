@@ -2,18 +2,12 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 class GeminiChatService {
   constructor() {
-    this.apiKey = process.env.REACT_APP_GEMINI_API_KEY || 'AIzaSyB8kL6ccXlx8PlUJTmQJLIL6nbaAEGvXMs';
+    this.apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
     this.genAI = null;
     this.model = null;
     this.chat = null;
     this.initialized = false;
     
-    // Debug logging
-    console.log('Environment variables:', {
-      hasApiKey: !!this.apiKey,
-      apiKeyLength: this.apiKey ? this.apiKey.length : 0,
-      envVarExists: !!process.env.REACT_APP_GEMINI_API_KEY
-    });
   }
 
   async initialize() {
@@ -21,11 +15,8 @@ class GeminiChatService {
 
     if (!this.apiKey || this.apiKey === 'your_gemini_api_key_here') {
       console.error('Gemini API key not found. Please set REACT_APP_GEMINI_API_KEY in your .env file');
-      console.log('Current API key:', this.apiKey);
       return;
     }
-
-    console.log('Initializing Gemini AI with API key length:', this.apiKey.length);
 
     try {
       this.genAI = new GoogleGenerativeAI(this.apiKey);

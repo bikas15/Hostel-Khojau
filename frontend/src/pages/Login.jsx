@@ -5,6 +5,7 @@ import { handleError, handleSuccess } from '../utils';
 import loginImage from '../assets/login.jpg';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from '../api';
 
 function Login() {
     const [loginInfo, setLoginInfo] = useState({
@@ -28,7 +29,7 @@ function Login() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/login', {
+            const response = await axios.post(`${API_BASE_URL}/auth/login`, {
             email,
             password
             });

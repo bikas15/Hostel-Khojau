@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RegisterHostel from '../components/RegisterHostel';
 import AboutUs from '../components/AboutUs';
+import { API_BASE_URL } from '../api';
 
 
 const Home = () => {
@@ -33,7 +34,7 @@ const Home = () => {
     const fetchFeaturedHostels = async () => {
       try {
         setLoading((prev) => ({ ...prev, featured: true }));
-        const response = await axios.get('http://localhost:5000/api/hostels?featured=true');
+        const response = await axios.get(`${API_BASE_URL}/hostels?featured=true`);
         console.log('Featured hostels:', response.data);
         setFeaturedHostels(response.data);
         setFilteredHostels(response.data);
@@ -52,7 +53,7 @@ const Home = () => {
     const fetchAllHostels = async () => {
       try {
         setLoading((prev) => ({ ...prev, all: true }));
-        const response = await axios.get('http://localhost:5000/api/hostels');
+        const response = await axios.get(`${API_BASE_URL}/hostels`);
         console.log('All hostels:', response.data);
         setAllHostels(response.data);
         applyFilters(response.data);

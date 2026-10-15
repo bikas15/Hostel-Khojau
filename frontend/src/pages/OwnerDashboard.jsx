@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditHostelModal from '../components/EditHostelModal';
+import { API_BASE_URL } from '../api';
 
 const OwnerDashboard = () => {
     const navigate = useNavigate();
@@ -35,10 +36,10 @@ const OwnerDashboard = () => {
             try {
                 setLoading(true);
                 const [hostelsResponse, bookingsResponse, chatsResponse] = await Promise.all([
-                    axios.get('http://localhost:5000/api/owner/hostels', {
+                    axios.get(`${API_BASE_URL}/owner/hostels`, {
                         headers: { 'x-auth-token': token }
                     }),
-                    axios.get('http://localhost:5000/api/owner/bookings', {
+                    axios.get(`${API_BASE_URL}/owner/bookings`, {
                         headers: { 'x-auth-token': token }
                     }),
                     axios.get('/api/chats', {
@@ -79,13 +80,13 @@ const OwnerDashboard = () => {
         const token = localStorage.getItem('token');
         try {
             await axios.post(
-                `http://localhost:5000/api/owner/hostels/${newRoom.hostelId}/rooms`,
+                `${API_BASE_URL}/owner/hostels/${newRoom.hostelId}/rooms`,
                 newRoom,
                 { headers: { 'x-auth-token': token } }
             );
             toast.success('Room added successfully');
             setNewRoom({ hostelId: '', roomNumber: '', roomType: '', monthlyPrice: '' });
-            const response = await axios.get('http://localhost:5000/api/owner/hostels', {
+            const response = await axios.get(`${API_BASE_URL}/owner/hostels`, {
                 headers: { 'x-auth-token': token }
             });
             setHostels(response.data);
@@ -97,7 +98,7 @@ const OwnerDashboard = () => {
     const handleDeleteHostel = async (hostelId) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:5000/api/hostels/${hostelId}`, {
+            await axios.delete(`${API_BASE_URL}/hostels/${hostelId}`, {
                 headers: { 'x-auth-token': token }
             });
             toast.success('Hostel deleted successfully');
@@ -167,7 +168,7 @@ const OwnerDashboard = () => {
         const token = localStorage.getItem('token');
         try {
             const response = await axios.put(
-                `http://localhost:5000/api/hostels/${selectedHostel._id}`,
+                `${API_BASE_URL}/hostels/${selectedHostel._id}`,
                 updatedData,
                 { 
                     headers: { 
@@ -182,7 +183,7 @@ const OwnerDashboard = () => {
                 
                 // Refresh hostels data with cache busting
                 const timestamp = Date.now();
-                const hostelResponse = await axios.get('http://localhost:5000/api/owner/hostels', {
+                const hostelResponse = await axios.get(`${API_BASE_URL}/owner/hostels`, {
                     headers: { 'x-auth-token': token }
                 });
 

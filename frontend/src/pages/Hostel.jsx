@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import RegisterHostel from '../components/RegisterHostel';
+import { API_BASE_URL } from '../api';
 
 const HostelPage = () => {
   const [hostels, setHostels] = useState([]);
@@ -14,7 +15,7 @@ const HostelPage = () => {
     const fetchHostels = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/hostels');
+        const response = await axios.get(`${API_BASE_URL}/hostels`);
         setHostels(response.data);
       } catch (error) {
         console.error('Error fetching hostels:', error);

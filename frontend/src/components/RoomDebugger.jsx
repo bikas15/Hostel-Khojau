@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { API_BASE_URL } from '../api';
 
 // Use the correct backend URL
-const API_BASE_URL = 'http://localhost:5000/api';
-
 const RoomDebugger = () => {
   const [roomId, setRoomId] = useState('');
   const [roomDetails, setRoomDetails] = useState(null);

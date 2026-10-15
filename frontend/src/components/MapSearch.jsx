@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import HostelMap from './HostelMap';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { API_BASE_URL } from '../api';
 
 import axios from 'axios';
 
@@ -28,7 +29,7 @@ const MapSearch = () => {
   const fetchHostels = async () => {
     try {
       console.log('Fetching hostels from API...');
-      const response = await axios.get('http://localhost:5000/api/hostels');
+      const response = await axios.get(`${API_BASE_URL}/hostels`);
       console.log('API Response:', response.data);
       
       if (!response.data || !Array.isArray(response.data)) {
@@ -266,7 +267,7 @@ const MapSearch = () => {
                 This could be because:
               </p>
               <ul className="text-yellow-700 text-sm mt-2 list-disc list-inside">
-                <li>Your backend server is not running (should be on http://localhost:5000)</li>
+                <li>The hostel service is currently unavailable</li>
                 <li>No hostels are approved in the database</li>
                 <li>The database is empty - try running the seed script</li>
                 <li>Your search filters are too restrictive</li>
