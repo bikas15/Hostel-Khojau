@@ -46,9 +46,9 @@ router.get('/', async (req, res) => {
   try {
     const query = req.query.featured === 'true' ? { isFeatured: true } : {};
     const hostels = await Hostel.find(query)
-      .populate('owner', 'name email')
+      .populate('owner', 'name')
       .populate('rooms')
-      .populate('bookings')
+      .select('-bookings')
       .lean();
     res.json(hostels);
   } catch (err) {
@@ -61,9 +61,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const hostel = await Hostel.findById(req.params.id)
-      .populate('owner', 'name email')
+      .populate('owner', 'name')
       .populate('rooms')
-      .populate('bookings')
+      .select('-bookings')
       .populate('reviews.userId', 'name')
       .lean();
     if (!hostel) {
