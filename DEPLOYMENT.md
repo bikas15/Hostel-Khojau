@@ -30,3 +30,14 @@ In GitHub, open **Hostel-Khojau > Settings > Secrets and variables > Actions > V
 Then rerun the **Deploy Hostel Hub to GitHub Pages** workflow. The value is a public API address, not a credential.
 
 The backend currently stores uploaded images on its local filesystem. Render's free filesystem is ephemeral, so use persistent object storage before relying on user-uploaded photos in production.
+## Add demo hostels and rooms
+
+With the backend's private MongoDB environment configured, run from `backend`:
+
+```sh
+npm run seed:hostels -- owner@example.com
+```
+
+Use the email of an existing owner account for this environment. This creates eight
+listings labeled “Demo” with a single, double, and triple room each. Running it
+again for the same owner keeps the existing records and room links.
