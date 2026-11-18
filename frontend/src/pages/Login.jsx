@@ -56,9 +56,9 @@ function Login() {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen w-full">
-            <div className="flex items-center justify-between bg-white p-8 rounded-lg w-full max-w-4xl mx-auto shadow-lg">
-                <div className="flex-1 mr-5">
+        <div className="flex min-h-screen w-full items-center justify-center px-4 py-8 sm:px-6">
+            <div className="grid items-center gap-6 sm:gap-8 md:grid-cols-2 bg-white p-5 sm:p-8 rounded-lg w-full max-w-4xl mx-auto shadow-lg">
+                <div className="min-w-0">
                     <h1 className="text-2xl font-bold mb-5">Login</h1>
                     <form onSubmit={handleLogin} className="flex flex-col">
                         <div>
@@ -96,7 +96,7 @@ function Login() {
                         </span>
                     </form>
                 </div>
-                <div className="flex-1 flex justify-center items-center">
+                <div className="hidden md:flex min-w-0 justify-center items-center">
                     <img src={loginImage} alt="Login Illustration" className="max-w-full rounded-lg" />
                 </div>
                 <ToastContainer />

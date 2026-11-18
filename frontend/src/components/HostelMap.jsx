@@ -46,7 +46,7 @@ const HostelMap = ({ hostels, onHostelSelect, selectedHostel }) => {
   };
 
   return (
-    <div className="h-96 w-full rounded-lg overflow-hidden shadow-md">
+    <div className="relative isolate h-72 sm:h-96 w-full rounded-lg overflow-hidden shadow-md">
       <MapContainer
         center={center}
         zoom={13}

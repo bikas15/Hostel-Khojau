@@ -338,7 +338,7 @@ const HostelDetails = () => {
                 </div>
 
                 <div className="mb-8">
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
                         <h2 className="text-xl font-bold font-poppins">Gallery</h2>
                         {hostel.images360?.length > 0 && (
                             <button
@@ -594,7 +594,7 @@ const HostelDetails = () => {
                         {/* Interactive Map Preview */}
                         {hostel.coordinates && (
                             <div className="mt-8">
-                                <div className="flex justify-between items-center mb-4">
+                                <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
                                     <h2 className="text-xl font-bold font-poppins">Location Preview</h2>
                                     <button
                                         onClick={() => setActiveTab('location')}
@@ -603,7 +603,7 @@ const HostelDetails = () => {
                                         View Full Map →
                                     </button>
                                 </div>
-                                <div className="w-full h-64 rounded-lg overflow-hidden shadow-lg border border-gray-200">
+                                <div className="relative isolate w-full h-56 sm:h-64 rounded-lg overflow-hidden shadow-lg border border-gray-200">
                                     <HostelMap 
                                         hostels={[hostel]} 
                                         onHostelSelect={() => setActiveTab('location')}
@@ -616,7 +616,7 @@ const HostelDetails = () => {
                         {mapSrc && (
                             <div className="mt-8">
                                 <h2 className="text-xl font-bold mb-4 font-poppins">Embedded Location</h2>
-                                <div className="w-full h-96 rounded-lg overflow-hidden shadow-lg border border-gray-200">
+                                <div className="relative isolate w-full h-72 sm:h-96 rounded-lg overflow-hidden shadow-lg border border-gray-200">
                                     <iframe
                                         src={mapSrc}
                                         className="w-full h-full"
@@ -905,7 +905,7 @@ const HostelDetails = () => {
                         {/* Interactive Map */}
                         {hostel.coordinates ? (
                             <div>
-                                <div className="flex justify-between items-center mb-4">
+                                <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
                                     <h4 className="font-medium text-gray-800 font-poppins">Interactive Map</h4>
                                     <button
                                         onClick={() => navigate('/map-search')}
@@ -934,7 +934,7 @@ const HostelDetails = () => {
                         {mapSrc && (
                             <div className="mt-8">
                                 <h4 className="font-medium text-gray-800 mb-4 font-poppins">Embedded Map</h4>
-                                <div className="w-full h-96 rounded-lg overflow-hidden shadow-lg border border-gray-200">
+                                <div className="relative isolate w-full h-72 sm:h-96 rounded-lg overflow-hidden shadow-lg border border-gray-200">
                                     <iframe
                                         src={mapSrc}
                                         className="w-full h-full"
@@ -1019,12 +1019,12 @@ const HostelDetails = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div className="flex gap-2">
+                            <div className="flex flex-col sm:flex-row gap-2">
                                 <textarea
                                     name="message"
                                     value={chatForm.message}
                                     onChange={handleChatChange}
-                                    className="flex-1 px-4 py-2 border rounded-lg resize-none font-poppins"
+                                    className="min-w-0 flex-1 px-4 py-2 border rounded-lg resize-none font-poppins"
                                     rows="3"
                                     placeholder="Type your message..."
                                 />
@@ -1039,12 +1039,12 @@ const HostelDetails = () => {
                     ) : (
                         <div className="space-y-4">
                             <p className="text-gray-600 font-poppins">No messages yet. Start the conversation!</p>
-                            <div className="flex gap-2">
+                            <div className="flex flex-col sm:flex-row gap-2">
                                 <textarea
                                     name="message"
                                     value={chatForm.message}
                                     onChange={handleChatChange}
-                                    className="flex-1 px-4 py-2 border rounded-lg resize-none font-poppins"
+                                    className="min-w-0 flex-1 px-4 py-2 border rounded-lg resize-none font-poppins"
                                     rows="3"
                                     placeholder="Type your message..."
                                 />

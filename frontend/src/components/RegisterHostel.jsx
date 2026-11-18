@@ -20,7 +20,7 @@ const RegisterHostel = () => {
   };
 
   return (
-    <div className="bg-blue-50 rounded-lg p-8 mb-12 text-center">
+    <div className="bg-blue-50 rounded-lg p-5 sm:p-8 mb-6 sm:mb-12 text-center">
       <h2 className="text-2xl font-bold mb-2">Register a Hostel for Free?</h2>
       <p className="text-gray-600 mb-6 text-lg">
         "Get your Hostel Online at our website by registering Here for Free!"

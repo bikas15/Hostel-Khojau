@@ -2,7 +2,7 @@ import HostelPhoto from '../components/HostelPhoto';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HeroImage from '../assets/HeroImage.jpg';
 import Navbar from '../components/Navbar';
@@ -128,45 +128,45 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
-      <main className="max-w-7xl mx-auto px-8">
-        <div className="py-8">
-          <div className="flex items-stretch gap-8">
-            <div className="w-1/2 bg-gray-50 p-12 rounded-lg flex flex-col justify-center">
-              <h1 className="text-5xl font-bold mb-4">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="py-4 sm:py-8">
+          <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:gap-8">
+            <div className="min-w-0 bg-gray-50 p-5 sm:p-8 xl:p-12 rounded-lg flex flex-col justify-center">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
                 Find Your Perfect Hostel
               </h1>
-              <p className="text-gray-600 mb-8 text-lg">
+              <p className="text-gray-600 mb-5 sm:mb-8 sm:text-lg">
                 Discover the best hostels in Kathmandu and beyond with Hostel Hub.
               </p>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-2 sm:gap-4">
                 <button
                   onClick={() => navigate('/hostel')}
-                  className="bg-red-500 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-red-600 transition-colors"
+                  className="bg-red-500 text-white px-4 sm:px-6 py-3 rounded-full text-sm sm:text-base font-medium hover:bg-red-600 transition-colors"
                 >
                   Explore Hostels
                 </button>
                 <button
                   onClick={() => navigate('/map-search')}
-                  className="bg-blue-500 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-blue-600 transition-colors"
+                  className="bg-blue-500 text-white px-4 sm:px-6 py-3 rounded-full text-sm sm:text-base font-medium hover:bg-blue-600 transition-colors"
                 >
                   Map Search
                 </button>
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="min-w-0">
               <img
                 src={HeroImage}
                 alt="Hostel illustration"
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-52 sm:h-64 md:h-full object-cover rounded-lg"
               />
             </div>
           </div>
         </div>
 
         {/* Search Hostels Section */}
-        <div className="bg-gray-50 p-6 rounded-lg shadow-sm mb-8">
+        <div className="bg-gray-50 p-4 sm:p-6 rounded-lg shadow-sm mb-8">
           <h2 className="text-2xl font-semibold mb-4">Search Hostels</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-4">
+          <div className="grid grid-cols-1 min-[400px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-[repeat(6,minmax(0,1fr))_auto] gap-3 sm:gap-4 [&>*]:min-w-0">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Hostel Name</label>
               <input
@@ -175,7 +175,7 @@ const Home = () => {
                 value={filters.name}
                 onChange={handleFilterChange}
                 placeholder="Enter hostel name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
+                className="w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
               />
             </div>
             <div>
@@ -186,7 +186,7 @@ const Home = () => {
                 value={filters.location}
                 onChange={handleFilterChange}
                 placeholder="Enter location"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
+                className="w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
               />
             </div>
             <div>
@@ -197,7 +197,7 @@ const Home = () => {
                 value={filters.city}
                 onChange={handleFilterChange}
                 placeholder="e.g., Kathmandu"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
+                className="w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
               />
             </div>
             <div>
@@ -206,7 +206,7 @@ const Home = () => {
                 name="hostelType"
                 value={filters.hostelType}
                 onChange={handleFilterChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
+                className="w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
               >
                 <option value="">Select Type</option>
                 <option value="Boys Hostel">Boys Hostel</option>
@@ -220,7 +220,7 @@ const Home = () => {
                 name="roomType"
                 value={filters.roomType}
                 onChange={handleFilterChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
+                className="w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
               >
                 <option value="">Select Room Type</option>
                 <option value="Single">Single</option>
@@ -235,7 +235,7 @@ const Home = () => {
                 name="priceRange"
                 value={filters.priceRange}
                 onChange={handleFilterChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
+                className="w-full min-w-0 px-3 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 transition-colors"
               >
                 <option value="">Select Price Range</option>
                 <option value="10000-12000">NPR 10000 - 12000</option>
@@ -268,7 +268,7 @@ const Home = () => {
               {filteredHostels.map((hostel) => (
                 <div
                   key={hostel._id}
-                  className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-lg cursor-pointer transition-shadow duration-200"
+                  className="min-w-0 break-words border rounded-lg p-4 bg-white shadow-sm hover:shadow-lg cursor-pointer transition-shadow duration-200"
                 >
                   <div className="relative mb-4">
                     <HostelPhoto path={hostel.images?.[0]} alt={hostel.name} className="w-full h-40 object-cover rounded-lg" />
@@ -307,7 +307,6 @@ const Home = () => {
       
 
       
-      <ToastContainer />
     </div>
   );
 };

@@ -14,15 +14,15 @@ const AIChatbot = ({ position = 'bottom-right' }) => {
   const getPositionClasses = () => {
     switch (position) {
       case 'bottom-left':
-        return 'bottom-6 left-6';
+        return 'bottom-3 left-3 sm:bottom-6 sm:left-6';
       case 'bottom-right':
-        return 'bottom-6 right-6';
+        return 'bottom-3 right-3 sm:bottom-6 sm:right-6';
       case 'top-right':
-        return 'top-6 right-6';
+        return 'top-3 right-3 sm:top-6 sm:right-6';
       case 'top-left':
-        return 'top-6 left-6';
+        return 'top-3 left-3 sm:top-6 sm:left-6';
       default:
-        return 'bottom-6 right-6';
+        return 'bottom-3 right-3 sm:bottom-6 sm:right-6';
     }
   };
 
@@ -168,7 +168,7 @@ const AIChatbot = ({ position = 'bottom-right' }) => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className={`fixed ${getPositionClasses()} z-40 w-80 h-96 bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col mb-20`}>
+        <div className={`fixed ${getPositionClasses()} z-40 w-80 max-w-[calc(100vw-1.5rem)] h-96 max-h-[calc(100dvh-6.5rem)] bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col mb-20`}>
           {/* Header */}
           <div className="bg-red-500 text-white p-4 rounded-t-lg flex items-center gap-2">
             <Bot className="h-5 w-5" />
@@ -179,7 +179,7 @@ const AIChatbot = ({ position = 'bottom-right' }) => {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          <div className="min-h-0 flex-1 overflow-y-auto p-4 space-y-3">
             {messages.map((message) => (
               <div
                 key={message.id}

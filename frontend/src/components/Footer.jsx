@@ -17,8 +17,8 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-800 text-white mt-8">
-      <div className="max-w-7xl mx-auto px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 [&>*]:min-w-0">
           {/* Logo and Social Media */}
           <div className="space-y-6">
             <div className="flex items-center">
@@ -75,7 +75,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 font-poppins">CONTACT US</h3>
             <div className="space-y-3">
-              <p><a className="text-gray-300 font-poppins hover:underline" href="mailto:bikashbanjade15@gmail.com">bikashbanjade15@gmail.com</a></p>
+              <p><a className="break-words text-gray-300 font-poppins hover:underline" href="mailto:bikashbanjade15@gmail.com">bikashbanjade15@gmail.com</a></p>
               <p className="text-gray-300 font-poppins">Kathmandu, Nepal</p>
               <p><a className="text-gray-300 font-poppins hover:underline" href="tel:+9779866863467">9866863467</a></p>
             </div>
@@ -93,7 +93,7 @@ const Footer = () => {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 font-poppins"
+                className="w-full pl-4 pr-16 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 font-poppins"
                 aria-label="Email address for subscription"
               />
               <button

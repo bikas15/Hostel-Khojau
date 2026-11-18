@@ -171,7 +171,7 @@ const MapSearch = () => {
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Search Header */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Find Hostels Near You</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Find Hostels Near You</h1>
           
           {/* Search Bar */}
           <div className="relative mb-4">
@@ -186,7 +186,7 @@ const MapSearch = () => {
           </div>
 
           {/* Filters */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+          <div className="grid grid-cols-1 min-[400px]:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-4 [&>*]:min-w-0">
             <select
               value={filters.city}
               onChange={(e) => handleFilterChange('city', e.target.value)}
@@ -230,7 +230,7 @@ const MapSearch = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-4">
             <button
               onClick={() => setViewMode('map')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
@@ -281,7 +281,7 @@ const MapSearch = () => {
       {viewMode === 'map' ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Map */}
-          <div className="lg:col-span-2">
+          <div className="min-w-0 lg:col-span-2">
             <HostelMap 
               hostels={filteredHostels} 
               onHostelSelect={handleHostelSelect}
@@ -290,7 +290,7 @@ const MapSearch = () => {
           </div>
           
           {/* Hostel List Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="min-w-0 lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-4 max-h-96 overflow-y-auto">
               <h3 className="font-semibold text-lg mb-4">Hostels</h3>
               {filteredHostels.map((hostel) => (

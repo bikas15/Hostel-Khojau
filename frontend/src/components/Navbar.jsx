@@ -1,204 +1,110 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import HostelKhojauLogo from '../assets/hostelhub.png';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import NotificationBell from './NotificationBell';
+
+const publicLinks = [
+  { to: '/home', label: 'Home' },
+  { to: '/hostel', label: 'Hostels' },
+  { to: '/map-search', label: 'Map Search' },
+];
+
+const guestLinks = [
+  { to: '/login', label: 'Login' },
+  { to: '/signup', label: 'Sign Up' },
+];
+
+const ownerDashboard = { to: '/owner/hostels', label: 'Owner Dashboard' };
+const adminDashboard = { to: '/admin/dashboard', label: 'Admin Dashboard' };
+const roleLinks = {
+  user: [{ to: '/my-bookings', label: 'My Bookings' }],
+  owner: [{ to: '/register-hostel', label: 'Register Hostel' }, ownerDashboard],
+  admin: [adminDashboard],
+};
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const menuButton = useRef(null);
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
-      console.log('Current User Role:', parsedUser.role); // Debug log
-    } else {
-      setUser(null);
-    }
-  }, [location.pathname]); // Re-run when the route changes
+    setUser(storedUser ? JSON.parse(storedUser) : null);
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setUser(null);
+    setMenuOpen(false);
     toast.success('Logged out successfully');
     navigate('/home');
   };
 
-  const isOwnerDashboard = location.pathname === '/owner/hostels' && user && user.role === 'owner';
-  const isAdminDashboard = location.pathname === '/admin/dashboard' && user && user.role === 'admin';
+  const isOwnerDashboard = location.pathname === ownerDashboard.to && user?.role === 'owner';
+  const isAdminDashboard = location.pathname === adminDashboard.to && user?.role === 'admin';
+  const links = isOwnerDashboard
+    ? [ownerDashboard]
+    : isAdminDashboard
+      ? [adminDashboard]
+      : [...publicLinks, ...(user ? roleLinks[user.role] ?? [] : guestLinks)];
 
-  // Default navigation links
-  const defaultNav = (
-    <div className="flex items-center gap-8 ml-auto mr-16">
-      <NavLink
-        to="/home"
-        className={({ isActive }) =>
-          isActive
-            ? "text-black font-semibold text-lg underline underline-offset-4 font-poppins"
-            : "text-gray-600 text-lg hover:text-black hover:underline hover:underline-offset-4 transition-all font-poppins"
-        }
-      >
-        Home
-      </NavLink>
-      <NavLink
-        to="/hostel"
-        className={({ isActive }) =>
-          isActive
-            ? "text-black font-semibold text-lg underline underline-offset-4 font-poppins"
-            : "text-gray-600 text-lg hover:text-black hover:underline hover:underline-offset-4 transition-all font-poppins"
-        }
-      >
-        Hostels
-      </NavLink>
-      <NavLink
-        to="/map-search"
-        className={({ isActive }) =>
-          isActive
-            ? "text-black font-semibold text-lg underline underline-offset-4 font-poppins"
-            : "text-gray-600 text-lg hover:text-black hover:underline hover:underline-offset-4 transition-all font-poppins"
-        }
-      >
-        Map Search
-      </NavLink>
-      {user && user.role === 'user' && (
-        <NavLink
-          to="/my-bookings"
-          className={({ isActive }) =>
-            isActive
-              ? "text-black font-semibold text-lg underline underline-offset-4 font-poppins"
-              : "text-gray-600 text-lg hover:text-black hover:underline hover:underline-offset-4 transition-all font-poppins"
-          }
-        >
-          My Bookings
-        </NavLink>
-      )}
-      {user && user.role === 'owner' && (
-        <>
-          <NavLink
-            to="/register-hostel"
-            className={({ isActive }) =>
-              isActive
-                ? "text-black font-semibold text-lg underline underline-offset-4 font-poppins"
-                : "text-gray-600 text-lg hover:text-black hover:underline hover:underline-offset-4 transition-all font-poppins"
-            }
-          >
-            Register Hostel
-          </NavLink>
-          <NavLink
-            to="/owner/hostels"
-            className={({ isActive }) =>
-              isActive
-                ? "text-black font-semibold text-lg underline underline-offset-4 font-poppins"
-                : "text-gray-600 text-lg hover:text-black hover:underline hover:underline-offset-4 transition-all font-poppins"
-            }
-          >
-            Owner Dashboard
-          </NavLink>
-        </>
-      )}
-      {user && user.role === 'admin' && (
-        <NavLink
-          to="/admin/dashboard"
-          className={({ isActive }) =>
-            isActive
-              ? "text-black font-semibold text-lg underline underline-offset-4 font-poppins"
-              : "text-gray-600 text-lg hover:text-black hover:underline hover:underline-offset-4 transition-all font-poppins"
-          }
-        >
-          Admin Dashboard
-        </NavLink>
-      )}
-      {user ? (
-        <div className="flex items-center space-x-4">
-          <NotificationBell />
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-200 font-poppins"
-          >
-            Logout
-          </button>
-        </div>
-      ) : (
-        <>
-          <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              isActive
-                ? "text-black font-semibold text-lg underline underline-offset-4 font-poppins"
-                : "text-gray-600 text-lg hover:text-black hover:underline hover:underline-offset-4 transition-all font-poppins"
-            }
-          >
-            Login
-          </NavLink>
-          <NavLink
-            to="/signup"
-            className={({ isActive }) =>
-              isActive
-                ? "text-black font-semibold text-lg underline underline-offset-4 font-poppins"
-                : "text-gray-600 text-lg hover:text-black hover:underline hover:underline-offset-4 transition-all font-poppins"
-            }
-          >
-            Sign Up
-          </NavLink>
-        </>
-      )}
-    </div>
-  );
-
-  // Owner dashboard navigation (no "My Bookings")
-  const ownerDashboardNav = (
-    <div className="flex items-center gap-8 ml-auto mr-16">
-      <NavLink
-        to="/owner/hostels"
-        className="text-black font-semibold text-lg font-poppins"
-      >
-        Owner Dashboard
-      </NavLink>
-      <div className="flex items-center space-x-4">
-        <NotificationBell />
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-200 font-poppins"
-        >
-          Logout
-        </button>
-      </div>
-    </div>
-  );
-
-  // Admin dashboard navigation (no "My Bookings")
-  const adminDashboardNav = (
-    <div className="flex items-center gap-8 ml-auto mr-16">
-      <NavLink
-        to="/admin/dashboard"
-        className="text-black font-semibold text-lg font-poppins"
-      >
-        Admin Dashboard
-      </NavLink>
-      <button
-        onClick={handleLogout}
-        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-200 font-poppins"
-      >
-        Logout
-      </button>
-    </div>
-  );
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape' && menuOpen) {
+      setMenuOpen(false);
+      menuButton.current?.focus();
+    }
+  };
 
   return (
-    <nav className="sticky top-0 flex items-center justify-between py-4 px-8 bg-white border-b shadow-sm z-10">
-      <div className="flex items-center gap-3">
-        <NavLink to="/home">
-          <img src={HostelKhojauLogo} alt="Hostel Khojau Logo" className="h-20" />
+    <nav aria-label="Main navigation" onKeyDown={handleKeyDown} className="sticky top-0 z-30 border-b bg-white shadow-sm">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-2 px-4 py-2 sm:px-6 lg:gap-x-5 lg:px-8">
+        <NavLink to="/home" onClick={() => setMenuOpen(false)} className="mr-auto flex shrink-0 items-center gap-2">
+          <img src={HostelKhojauLogo} alt="" className="h-12 w-12 object-contain lg:h-14 lg:w-14" />
+          <span className="font-poppins text-xl font-bold text-red-600 sm:text-2xl">Hostel Hub</span>
         </NavLink>
-        <span className="text-2xl font-bold text-red-600 font-poppins">Hostel Hub</span>
+
+        <div
+          id="main-navigation-links"
+          className={`order-last max-h-[calc(100dvh-4.5rem)] w-full flex-col gap-1 overflow-y-auto border-t py-2 lg:order-none lg:max-h-none lg:overflow-visible lg:flex lg:w-auto lg:flex-row lg:items-center lg:gap-2 lg:border-0 lg:py-0 xl:gap-4 ${menuOpen ? 'flex' : 'hidden'}`}
+        >
+          {links.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                `flex min-h-11 items-center rounded-md px-3 font-poppins text-sm hover:bg-gray-50 hover:text-black lg:px-2 xl:text-base ${isActive ? 'font-semibold text-black underline underline-offset-4' : 'text-gray-600'}`
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
+          {user && (
+            <button type="button" onClick={handleLogout} className="min-h-11 self-start rounded-lg bg-red-600 px-4 py-2 font-poppins text-sm text-white hover:bg-red-700 lg:self-auto">
+              Logout
+            </button>
+          )}
+        </div>
+
+        {user && !isAdminDashboard && <NotificationBell />}
+        <button
+          ref={menuButton}
+          type="button"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-controls="main-navigation-links"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(open => !open)}
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-md border border-gray-200 text-gray-700 hover:bg-gray-50 lg:hidden"
+        >
+          {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
       </div>
-      {isOwnerDashboard ? ownerDashboardNav : isAdminDashboard ? adminDashboardNav : defaultNav}
-      <ToastContainer />
     </nav>
   );
 };
