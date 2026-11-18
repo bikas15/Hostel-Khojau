@@ -196,7 +196,11 @@ async function seedHostels() {
     const hostelId = seedId('demo-hostel', owner.id, sample.name);
     await Hostel.updateOne(
       { _id: hostelId },
-      { $setOnInsert: { ...sample, owner: owner._id } },
+      { $setOnInsert: {
+        ...sample,
+        owner: owner._id,
+        contact: { email: 'bikashbanjade15@gmail.com', phone: '9866863467' }
+      } },
       { upsert: true, runValidators: true }
     );
 

@@ -75,9 +75,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 font-poppins">CONTACT US</h3>
             <div className="space-y-3">
-              <p className="text-gray-300 font-poppins">Hostelhub@gmail.com</p>
+              <p><a className="text-gray-300 font-poppins hover:underline" href="mailto:bikashbanjade15@gmail.com">bikashbanjade15@gmail.com</a></p>
               <p className="text-gray-300 font-poppins">Kathmandu, Nepal</p>
-              <p className="text-gray-300 font-poppins">+01 5236123</p>
+              <p><a className="text-gray-300 font-poppins hover:underline" href="tel:+9779866863467">9866863467</a></p>
             </div>
           </div>
 
