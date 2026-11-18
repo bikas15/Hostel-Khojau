@@ -1,3 +1,4 @@
+import HostelPhoto from '../components/HostelPhoto';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -269,12 +270,8 @@ const Home = () => {
                   key={hostel._id}
                   className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-lg cursor-pointer transition-shadow duration-200"
                 >
-                  <div className="relative">
-                    <img
-                      src={hostel.images && hostel.images[0] ? hostel.images[0] : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='}
-                      alt={hostel.name}
-                      className="w-full h-40 object-cover rounded-lg mb-4"
-                    />
+                  <div className="relative mb-4">
+                    <HostelPhoto path={hostel.images?.[0]} alt={hostel.name} className="w-full h-40 object-cover rounded-lg" />
                     {!isSearching && (
                       <span className="absolute top-2 right-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded-full font-poppins">
                         Featured

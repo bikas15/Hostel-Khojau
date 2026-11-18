@@ -1,3 +1,4 @@
+import HostelPhoto from '../components/HostelPhoto';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -266,15 +267,7 @@ const OwnerDashboard = () => {
                                     key={hostel._id}
                                     className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition"
                                 >                    <div className="mb-4 relative overflow-hidden rounded-lg">
-                                        <img
-                                            src={hostel.images && hostel.images[0] ? hostel.images[0] : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='}
-                                            alt={hostel.name}
-                                            className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
-                                            key={hostel.images && hostel.images[0]} // Force re-render on image change
-                                            onError={(e) => {
-                                                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
-                                            }}
-                                        />
+                                        <HostelPhoto path={hostel.images?.[0]} alt={hostel.name} className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105" />
                                     </div>
                                     <h3 className="text-xl font-semibold text-gray-800 mb-2">{hostel.name}</h3>
                                     <p className="text-gray-600 mb-2">
@@ -418,7 +411,7 @@ const OwnerDashboard = () => {
                                         >
                                             <div>
                                                 <p className="font-medium text-gray-800">
-                                                    {review.userId?.name || 'Anonymous'} - {review.rating} ★
+                                                    {review.userId?.name || 'Anonymous'} - {review.rating} â˜…
                                                 </p>
                                                 <p className="text-gray-600 mt-1">{review.comment}</p>
                                                 <p className="text-gray-500 text-sm mt-2">

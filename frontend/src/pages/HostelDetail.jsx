@@ -1,3 +1,4 @@
+import HostelPhoto, { roomSamplePhoto } from '../components/HostelPhoto';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api';
@@ -48,15 +49,6 @@ const HostelDetails = () => {
                 const hostelData = hostelResponse.data;
                 
                 // Update image URLs with cache busting
-                if (hostelData.images) {
-                    hostelData.images = hostelData.images.map(img => {
-                        // Handle both relative and absolute URLs
-                        const baseUrl = img.startsWith('http') ? '' : API_BASE_URL.replace(/\/api\/?$/, '');
-                        const fullUrl = `${baseUrl}${img}`;
-                        const separator = fullUrl.includes('?') ? '&' : '?';
-                        return `${fullUrl}${separator}t=${imageTimestamp}`;
-                    });
-                }
                 if (hostelData.images360) {
                     hostelData.images360 = hostelData.images360.map(img => {
                         const baseUrl = img.startsWith('http') ? '' : API_BASE_URL.replace(/\/api\/?$/, '');
@@ -438,46 +430,18 @@ const HostelDetails = () => {
                         )
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {hostel.images?.length > 0 ? (
-                                hostel.images.map((img, index) => (
-                                    <div
-                                        key={`img-${index}-${imageTimestamp}`}
-                                        className="group relative rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
-                                    >
-                                        <img
-                                            src={img}
-                                            alt={`${hostel.name} - Photo ${index + 1}`}
-                                            className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-                                            loading="lazy"
-                                            key={`${img}-${imageTimestamp}`}
-                                            onError={(e) => {
-                                                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
-                                            }}
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                                            <span className="text-white font-medium font-poppins">Photo {index + 1}</span>
-                                        </div>
-                                    </div>
-                                ))
-                            ) : (
-                                <div className="col-span-full bg-gray-100 rounded-lg p-8 text-center">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-12 w-12 mx-auto text-gray-400"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            {(hostel.images?.length ? hostel.images : [null]).map((img, index) => (
+                                <div
+                                    key={`img-${index}-${imageTimestamp}`}
+                                    className="rounded-lg overflow-hidden shadow-md"
+                                >
+                                    <HostelPhoto
+                                        path={img}
+                                        alt={`${hostel.name} - Photo ${index + 1}`}
+                                        className="w-full h-64 object-cover"
                                     />
-                                </svg>
-                                <p className="mt-2 text-gray-500 font-poppins">No photos available</p>
-                            </div>
-                        )}
+                                </div>
+                            ))}
                     </div>
                 )}
             </div>
@@ -700,14 +664,17 @@ const HostelDetails = () => {
                                         >
                                             <div className="relative h-48">
                                                 <img
-                                                    src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                                                    alt={`Room ${room.roomNumber}`}
+                                                    src={roomSamplePhoto(room.roomType)}
+                                                    alt={`Sample ${room.roomType.toLowerCase()} room`}
                                                     className="w-full h-full object-cover"
                                                     loading="lazy"
                                                 />
                                                 <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-sm font-poppins">
                                                     Available
                                                 </div>
+                                                <span className="absolute bottom-2 left-2 rounded bg-black/70 px-2 py-1 text-xs text-white">
+                                                    Sample photo
+                                                </span>
                                             </div>
                                             <div className="p-5">
                                                 <h4 className="text-xl font-semibold text-gray-800 mb-2 font-poppins">

@@ -1,3 +1,4 @@
+import HostelPhoto from '../components/HostelPhoto';
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -61,11 +62,8 @@ const HostelPage = () => {
 const HostelCard = ({ hostel }) => {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md">
-      <div className="relative">        <img
-          src={hostel.images && hostel.images[0] ? hostel.images[0] : 'https://via.placeholder.com/300x200'}
-          alt={hostel.name}
-          className="w-full h-48 object-cover"
-        />
+      <div className="relative">
+        <HostelPhoto path={hostel.images?.[0]} alt={hostel.name} className="w-full h-48 object-cover" />
       </div>
       <div className="p-4">
         <h3 className="font-bold text-lg mb-1">{hostel.name}</h3>

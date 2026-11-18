@@ -1,3 +1,4 @@
+import HostelPhoto from './HostelPhoto';
 import React, { useState, useEffect } from 'react';
 import { Search, MapPin, List } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -322,13 +323,7 @@ const MapSearch = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredHostels.map((hostel) => (
             <div key={hostel._id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-              {hostel.images && hostel.images[0] && (
-                <img
-                  src={hostel.images[0]}
-                  alt={hostel.name}
-                  className="w-full h-48 object-cover"
-                />
-              )}
+              <HostelPhoto path={hostel.images?.[0]} alt={hostel.name} className="w-full h-48 object-cover" />
               <div className="p-4">
                 <h3 className="font-semibold text-lg text-gray-900 mb-2">{hostel.name}</h3>
                 <p className="text-sm text-gray-600 mb-1 flex items-center">
